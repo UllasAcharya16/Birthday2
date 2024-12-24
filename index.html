@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Priyanka!</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #141E30, #243B55);
+      color: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background-name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.1);
+      white-space: nowrap;
+      pointer-events: none;
+      text-transform: uppercase;
+      display: flex;
+    }
+
+    .letter {
+      opacity: 0;
+      transform: translateY(-100vh);
+      animation: drop 1.5s ease forwards;
+      margin: 0 2px;
+    }
+
+    .letter:nth-child(odd) {
+      animation-delay: 0.1s;
+    }
+
+    .letter:nth-child(even) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes drop {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      color: #ddd;
+    }
+
+    @keyframes glow {
+      from {
+        opacity: 0.8;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .background-name {
+        font-size: 5rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .background-name {
+        font-size: 3rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-name" id="backgroundName">
+    <!-- Letters will be added dynamically -->
+  </div>
+  <div class="container">
+    <h1>Happy Birthday Priyanka 🎉</h1>
+    <p>May your day be filled with magic, laughter, and love!</p>
+  </div>
+
+  <!-- Add the Happy Birthday audio -->
+  <audio id="happyBirthdaySong" src="happy-birthday.mp3" preload="auto"></audio>
+
+  <script>
+    const name = "Priyanka";
+    const backgroundNameElement = document.getElementById('backgroundName');
+    const audioElement = document.getElementById('happyBirthdaySong');
+    
+    // Function to play audio after user interaction
+    function playAudio() {
+      audioElement.currentTime = 14; // Reset audio to start from the beginning
+      audioElement.play(); // Play the song
+    }
+
+    // Split each letter and wrap it in a div for animation
+    for (let i = 0; i < name.length; i++) {
+      const letterElement = document.createElement('div');
+      letterElement.className = 'letter';
+      letterElement.textContent = name[i];
+      backgroundNameElement.appendChild(letterElement);
+
+      // Trigger audio play when the user clicks anywhere on the page
+      letterElement.addEventListener('animationend', function() {
+        if (!audioElement.paused && i === 0) {
+          audioElement.play(); // Play the audio after the first letter animation
+        }
+      });
+    }
+
+    // Allow user to click anywhere on the page to start the audio
+    window.addEventListener('click', () => {
+      if (audioElement.paused) {
+        playAudio();
+      }
+    });
+  </script>
+</body>
+</html>
